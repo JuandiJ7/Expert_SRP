@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Collections.Generic;
 
 
 
@@ -57,8 +58,8 @@ namespace Library
 
     public class AppointmentService2 //Clase que se basa en el principio Expert, no solo crea una cita y la guarda en una lista de citas, sino que tambien revisa su validez
     {
-
-        public static string CreateAppointment(string infoPatient, string dates, string appointmentPlace, string infoDoctor)
+        private static List<string> citas = new List<string>();
+        public static string CreateAppointment(string infoPatient, DateTime dates, string appointmentPlace, string infoDoctor)
         {
             StringBuilder stringBuilder = new StringBuilder("Scheduling appointment...\n");
             Boolean isValid = true;
@@ -84,11 +85,16 @@ namespace Library
             if (isValid)
             {
                 stringBuilder.Append($"Appointment scheduled.");
+                citas.Add($"La cita N° {identifier} pertenece a: {infoPatient},en la fecha {dates}, en {appointmentPlace}, con el doctor {infoDoctor}");
                 identifier++;
             }
 
             return stringBuilder.ToString();
+            
 
+        }
+        public static string print(int identifier){
+            return (citas[identifier]);
         }
         private static int identifier = 0;
     }
